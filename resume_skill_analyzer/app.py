@@ -31,16 +31,14 @@ st.set_page_config(
     menu_items={}
 )
 
-# Hide sidebar completely with CSS
+# Hide sidebar and set main content width
 hide_sidebar_style = """
 <style>
-    [data-testid="stSidebar"] {
-        display: none !important;
-    }
+    [data-testid="stSidebar"] { display: none !important; }
     .stMain {
-        max-width: 100% !important;
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
+        max-width: 1000px !important;
+        margin: 0 auto !important;
+        padding: 2rem 2.5rem !important;
     }
 </style>
 """
@@ -63,168 +61,105 @@ set_custom_css()
 # Navigation
 if st.session_state.current_section == 'home':
     # HOME PAGE
-    st.markdown('<h1 class="main-header">AI Resume Skill Gap Analyzer</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-subtitle">Transform your career with AI-powered skill analysis and personalized recommendations</p>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">Resume Skill Analyzer</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="hero-subtitle">AI-powered skill gap analysis. Upload your resume, pick a role, and get actionable insights in seconds.</p>', unsafe_allow_html=True)
     
-    # Features Section
-    st.markdown('<h2 class="sub-header">Why Choose Our AI Analyzer?</h2>', unsafe_allow_html=True)
+    # Stats row - compact
+    col1, col2, col3, col4 = st.columns(4)
+    stats = [
+        ("15+", "Job Roles"),
+        ("200+", "Skills"),
+        ("95%", "Accuracy"),
+        ("Free", "Forever"),
+    ]
+    for i, (num, label) in enumerate(stats):
+        with [col1, col2, col3, col4][i]:
+            st.markdown(f"""
+            <div class="stat-item animate-fade-in">
+                <div class="stat-number">{num}</div>
+                <div class="stat-label">{label}</div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Features - cleaner 3-column
+    st.markdown('<h2 class="sub-header">How it works</h2>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
         <div class="feature-card animate-fade-in">
-            <div class="feature-icon">🧠</div>
-            <div class="feature-title">Advanced NLP</div>
+            <div class="feature-icon">📄</div>
+            <div class="feature-title">Upload Resume</div>
             <div class="feature-description">
-                Cutting-edge natural language processing extracts skills with 95% accuracy using TF-IDF, tokenization, and semantic analysis
+                PDF or text format. We extract and analyze your skills automatically.
             </div>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown("""
-        <div class="feature-card animate-fade-in">
-            <div class="feature-icon">📊</div>
-            <div class="feature-title">Smart Analytics</div>
-            <div class="feature-description">
-                Interactive visualizations and comprehensive gap analysis with personalized learning recommendations
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
         st.markdown("""
         <div class="feature-card animate-fade-in">
             <div class="feature-icon">🎯</div>
-            <div class="feature-title">Career Insights</div>
+            <div class="feature-title">Choose Role</div>
             <div class="feature-description">
-                15+ job roles with salary ranges, growth potential, and detailed skill requirements
+                Select from 15+ job roles with salary ranges and growth potential.
             </div>
         </div>
         """, unsafe_allow_html=True)
     
-    # Statistics Section
-    st.markdown('<h2 class="sub-header">Platform Statistics</h2>', unsafe_allow_html=True)
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown("""
-        <div class="stat-item">
-            <div class="stat-number">15+</div>
-            <div class="stat-label">Job Roles</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="stat-item">
-            <div class="stat-number">200+</div>
-            <div class="stat-label">Skills Tracked</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
     with col3:
         st.markdown("""
-        <div class="stat-item">
-            <div class="stat-number">95%</div>
-            <div class="stat-label">Accuracy Rate</div>
+        <div class="feature-card animate-fade-in">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Get Insights</div>
+            <div class="feature-description">
+                Match rate, missing skills, and personalized recommendations.
+            </div>
         </div>
         """, unsafe_allow_html=True)
     
-    with col4:
-        st.markdown("""
-        <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Available</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # How It Works Section
-    st.markdown('<h2 class="sub-header">How It Works</h2>', unsafe_allow_html=True)
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown("""
-        <div class="metric-card">
-            <h3 style="color: #ffffff; margin-bottom: 1rem;">Step 1</h3>
-            <p style="color: #999999; margin: 0;">Upload your resume in PDF or text format</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="metric-card">
-            <h3 style="color: #ffffff; margin-bottom: 1rem;">Step 2</h3>
-            <p style="color: #999999; margin: 0;">Select your target job role from our database</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div class="metric-card">
-            <h3 style="color: #ffffff; margin-bottom: 1rem;">Step 3</h3>
-            <p style="color: #999999; margin: 0;">AI analyzes your skills against requirements</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown("""
-        <div class="metric-card">
-            <h3 style="color: #ffffff; margin-bottom: 1rem;">Step 4</h3>
-            <p style="color: #999999; margin: 0;">Get detailed insights and recommendations</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # CTA Section
-    st.markdown("---")
-    
+    # CTA
+    st.markdown("<br>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
-    
     with col2:
         st.markdown("""
-        <div style="text-align: center; padding: 3rem 0;">
-            <h2 style="color: #ffffff; margin-bottom: 1rem;">Ready to Transform Your Career?</h2>
-            <p style="color: #999999; margin-bottom: 2rem; font-size: 1.1rem;">
-                Get personalized skill analysis and career recommendations in minutes
-            </p>
+        <div style="text-align: center; padding: 1.5rem 0;">
+            <p style="color: #94a3b8; margin-bottom: 1.25rem; font-size: 1rem;">Ready to see how you match?</p>
         </div>
         """, unsafe_allow_html=True)
-        
         if st.button("Start Analysis", type="primary", use_container_width=True):
             st.session_state.current_section = 'analysis'
             st.rerun()
 
 else:
     # ANALYSIS PAGE
-    st.markdown('<h1 class="main-header">Resume Analysis</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-subtitle">Upload your resume and get AI-powered skill analysis</p>', unsafe_allow_html=True)
-    
-    # Navigation buttons
-    col1, col2 = st.columns([1, 3])
-    
-    with col1:
-        if st.button("Home", use_container_width=True):
+    col_nav, col_title = st.columns([1, 5])
+    with col_nav:
+        if st.button("← Home", use_container_width=True):
             st.session_state.current_section = 'home'
             st.rerun()
+    with col_title:
+        st.markdown('<h1 class="main-header" style="text-align: left; margin-bottom: 0.25rem;">Analysis</h1>', unsafe_allow_html=True)
+        st.markdown('<p class="hero-subtitle" style="text-align: left; margin-bottom: 1.5rem;">Upload your resume and select a target role</p>', unsafe_allow_html=True)
     
     # Configuration Section
-    st.markdown('<h2 class="sub-header">Configuration</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="sub-header">Setup</h2>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("**Upload Resume**")
+        st.markdown('<p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 0.5rem;">Resume</p>', unsafe_allow_html=True)
         uploaded_file = st.file_uploader(
-            "Choose a file",
+            "Upload PDF or TXT",
             type=['pdf', 'txt'],
-            help="Upload your resume in PDF or text format"
+            help="Your resume in PDF or text format"
         )
     
     with col2:
-        st.markdown("**Select Job Role**")
+        st.markdown('<p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 0.5rem;">Target Role</p>', unsafe_allow_html=True)
         job_skills_path = os.path.join(os.path.dirname(__file__), 'data', 'job_skills.json')
         
         try:
@@ -257,10 +192,10 @@ else:
     # Analyze button
     if uploaded_file is not None and selected_job_role:
         analyze_button = st.button(
-            "🔍 Analyze Resume",
+            "Analyze Resume",
             type="primary",
             use_container_width=True,
-            help="Click to start the skill gap analysis"
+            help="Start skill gap analysis"
         )
         
         if analyze_button:
@@ -331,11 +266,8 @@ else:
     if st.session_state.analysis_complete and st.session_state.analysis_results:
         results = st.session_state.analysis_results
         
-        # Success message
-        st.success("✅ Analysis completed successfully!")
-        
         # Key metrics row
-        st.markdown('<h2 class="sub-header">📊 Analysis Summary</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="sub-header">Summary</h2>', unsafe_allow_html=True)
         
         col1, col2, col3, col4 = st.columns(4)
         
@@ -368,18 +300,18 @@ else:
             """, unsafe_allow_html=True)
         
         # Skills breakdown
-        st.markdown('<h2 class="sub-header">🎯 Skills Breakdown</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="sub-header">Skills</h2>', unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
         
         with col1:
-            display_skill_cards(results['matched_skills'], "✅ Matched Skills", "skill-match")
+            display_skill_cards(results['matched_skills'], "Matched", "skill-match")
         
         with col2:
-            display_skill_cards(results['missing_skills'], "❌ Missing Skills", "skill-missing")
+            display_skill_cards(results['missing_skills'], "Missing", "skill-missing")
         
         # Visualizations
-        st.markdown('<h2 class="sub-header">📈 Visual Analytics</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="sub-header">Analytics</h2>', unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
         
@@ -394,7 +326,7 @@ else:
         
         # Recommendations
         if results['recommendations']:
-            st.markdown('<h2 class="sub-header">💡 Recommendations</h2>', unsafe_allow_html=True)
+            st.markdown('<h2 class="sub-header">Recommendations</h2>', unsafe_allow_html=True)
             
             for i, recommendation in enumerate(results['recommendations'], 1):
                 st.markdown(f"""
@@ -408,7 +340,6 @@ else:
 st.markdown("---")
 st.markdown("""
 <div class="custom-footer">
-    <strong>🎯 AI Resume Skill Gap Analyzer</strong><br>
-    <span style="color: #94a3b8;">Powered by Advanced NLP Technology</span>
+    Resume Skill Analyzer · Powered by NLP
 </div>
 """, unsafe_allow_html=True)

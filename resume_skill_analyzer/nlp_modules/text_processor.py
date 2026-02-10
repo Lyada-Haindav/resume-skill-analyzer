@@ -11,15 +11,15 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 
 # Download required NLTK data (only once)
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
-
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords')
+# punkt_tab is required by newer NLTK versions for word_tokenize/sent_tokenize
+for resource in ('punkt', 'punkt_tab', 'stopwords'):
+    try:
+        if resource == 'stopwords':
+            nltk.data.find('corpora/stopwords')
+        else:
+            nltk.data.find(f'tokenizers/{resource}')
+    except LookupError:
+        nltk.download(resource, quiet=True)
 
 class TextProcessor:
     """Advanced text processing for resume analysis"""
